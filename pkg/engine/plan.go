@@ -71,7 +71,7 @@ func (ap *ActionPlan) checkInputs(actions []string) error {
 	return nil
 }
 func (ap *ActionPlan) logAction(action string) func(error) error {
-	if os.Getenv("VERBOSE") == "true" {
+	if os.Getenv("VERBOSE") != "" {
 		return func(err error) error { return err }
 	}
 	spin := spinner.New(spinner.CharSets[9], time.Duration(100)*time.Millisecond) //nolint:gomnd

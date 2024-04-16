@@ -1,6 +1,8 @@
 package engine
 
-import "dagger.io/dagger"
+import (
+	"dagger.io/dagger"
+)
 
 var registeredActions = map[string]*Action{}
 

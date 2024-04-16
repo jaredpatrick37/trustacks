@@ -14,7 +14,7 @@ var (
 	Flake8ConfigExistsFact = engine.NewFact()
 )
 
-var Flake8ConfigExistsRule engine.Rule = func(source string, collector engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
+var Flake8ConfigExistsRule engine.Rule = func(source string, _ engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
 	var fact = engine.NilFact
 	var flake8ConfigFiles = []string{
 		".flake8",

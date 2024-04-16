@@ -17,7 +17,7 @@ var golangCILintRun = &engine.Action{
 	Image:       func(_ *engine.Config) string { return "golang:alpine" },
 	Stage:       engine.CommitStage,
 	Caches:      []string{"/go/pkg/mod"},
-	Script: func(container *dagger.Container, _ map[string]interface{}, utils *engine.ActionUtilities) error {
+	Script: func(container *dagger.Container, _ map[string]interface{}, _ *engine.ActionUtilities) error {
 		container = container.WithExec([]string{"apk", "add", "bash", "curl", "git"})
 		container = container.WithExec([]string{
 			"/bin/sh",

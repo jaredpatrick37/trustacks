@@ -24,7 +24,7 @@ type ApplicationSpecMetadata struct {
 	Name string `yaml:"name"`
 }
 
-var ArgoCDApplicationExistsRule engine.Rule = func(source string, collector engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
+var ArgoCDApplicationExistsRule engine.Rule = func(_ string, collector engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
 	var fact = engine.NilFact
 	matches := collector.Search(".*.yaml")
 	for _, path := range matches {

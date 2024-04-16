@@ -27,7 +27,7 @@ var GoModExistsRule engine.Rule = func(source string, _ engine.Collector, _ maps
 	return fact, nil
 }
 
-var GolangTestExistsRule engine.Rule = func(source string, collector engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
+var GolangTestExistsRule engine.Rule = func(_ string, collector engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
 	var fact = engine.NilFact
 	if len(collector.Search(".*_test.go")) > 0 {
 		fact = GolangTestsExistsFact
@@ -35,7 +35,7 @@ var GolangTestExistsRule engine.Rule = func(source string, collector engine.Coll
 	return fact, nil
 }
 
-var GolangIntegrationTestExistsRule engine.Rule = func(source string, collector engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
+var GolangIntegrationTestExistsRule engine.Rule = func(_ string, collector engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
 	var fact = engine.NilFact
 	for _, path := range collector.Search(".*_test.go") {
 		re := regexp.MustCompile(`func\sTest.*(Integration)\(t\s\*testing.T\)\s`)

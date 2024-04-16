@@ -14,7 +14,7 @@ var (
 	SonarProjectPropertiesExists = engine.NewFact()
 )
 
-var SonarProjectPropertiesExistsRule engine.Rule = func(source string, collector engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
+var SonarProjectPropertiesExistsRule engine.Rule = func(source string, _ engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
 	var fact = engine.NilFact
 	if _, err := os.Stat(filepath.Join(source, "sonar-project.properties")); os.IsNotExist(err) {
 		return fact, nil

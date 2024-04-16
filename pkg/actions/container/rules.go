@@ -25,7 +25,7 @@ var ContainerfileExistsRule engine.Rule = func(source string, _ engine.Collector
 	return fact, nil
 }
 
-var ContainerfileHasNoDependenciesRule engine.Rule = func(source string, _ engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
+var ContainerfileHasPredictableDependenciesRule engine.Rule = func(source string, _ engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
 	var fact = engine.NilFact
 	for _, file := range []string{"Dockerfile", "Containerfile"} {
 		if _, err := os.Stat(filepath.Join(source, file)); !os.IsNotExist(err) {
@@ -72,6 +72,6 @@ var ContainerfileHasBuildCopyRule engine.Rule = func(source string, _ engine.Col
 }
 
 func init() {
-	engine.AddToRuleset(&ContainerfileExistsRule, &ContainerfileHasNoDependenciesRule)
+	engine.AddToRuleset(&ContainerfileExistsRule, &ContainerfileHasPredictableDependenciesRule)
 	engine.AddToRuleset(&ContainerfileExistsRule, &ContainerfileHasBuildCopyRule)
 }

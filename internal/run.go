@@ -60,7 +60,7 @@ func RunCmd(options *RunCmdOptions) error {
 		return fmt.Errorf("failed converting plan file to spec: %s", err)
 	}
 	clientOpts := []dagger.ClientOpt{}
-	if os.Getenv("VERBOSE") == "true" {
+	if os.Getenv("VERBOSE") != "" {
 		clientOpts = append(clientOpts, dagger.WithLogOutput(os.Stdout))
 	}
 	client, err := dagger.Connect(context.Background(), clientOpts...)

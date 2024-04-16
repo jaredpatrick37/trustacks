@@ -80,7 +80,7 @@ COPY test.txt /tmp/test.txt`)
 			if err := os.WriteFile(filepath.Join(d, "test.txt"), []byte("test"), 0644); err != nil {
 				t.Fatal(err)
 			}
-			fact, err := ContainerfileHasNoDependenciesRule(d, nil, nil)
+			fact, err := ContainerfileHasPredictableDependenciesRule(d, nil, nil)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -98,7 +98,7 @@ COPY test.txt /tmp/test.txt`)
 		if err := os.WriteFile(filepath.Join(d, "Dockerfile"), contents, 0644); err != nil {
 			t.Fatal(err)
 		}
-		fact, err := ContainerfileHasNoDependenciesRule(d, nil, nil)
+		fact, err := ContainerfileHasPredictableDependenciesRule(d, nil, nil)
 		if err != nil {
 			t.Fatal(err)
 		}

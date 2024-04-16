@@ -25,6 +25,7 @@ func TestGetArgoApplicationInfoIntegration(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping integration test")
 	}
+	t.Parallel()
 	src, err := os.MkdirTemp("", "get-argo-application-info")
 	if err != nil {
 		t.Fatal(err)

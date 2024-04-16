@@ -14,7 +14,7 @@ var golangBuild = &engine.Action{
 	Name:        "golangBuild",
 	DisplayName: "Golang Build",
 	Description: "Build the golang application.",
-	Image:       func(config *engine.Config) string { return imageName },
+	Image:       func(_ *engine.Config) string { return imageName },
 	Stage:       engine.CommitStage,
 	Caches:      []string{"/go/pkg/mod"},
 	OutputArtifacts: []engine.Artifact{
@@ -56,14 +56,14 @@ var golangTest = &engine.Action{
 	Name:        "golangTest",
 	DisplayName: "Golang Test",
 	Description: "Run the unit test suite with go test.",
-	Image:       func(config *engine.Config) string { return imageName },
+	Image:       func(_ *engine.Config) string { return imageName },
 	Stage:       engine.CommitStage,
 	Caches:      []string{"/go/pkg/mod"},
 	OutputArtifacts: []engine.Artifact{
 		engine.CoverageArtifact,
 	},
 	Script: func(container *dagger.Container, _ map[string]interface{}, utils *engine.ActionUtilities) error {
-		container = container.WithExec([]string{"go", "test", "./...", "-v", "-short", "-coverprofile", "coverage.out"})
+		container = container.WithExec([]string{"go", "test", "./...", "-v", "-race", "-short", "-coverprofile", "coverage.out"})
 		if err := utils.Export(container, engine.CoverageArtifact, "coverage.out"); err != nil {
 			return err
 		}
@@ -87,7 +87,7 @@ var golangIntegrationTest = &engine.Action{
 		}
 		defer stop()
 		container = utils.WithDockerCLI(engine.DockerCLIOnDebian, container)
-		container = container.WithExec([]string{"go", "test", "./...", "-v", "-run", "Integration"})
+		container = container.WithExec([]string{"go", "test", "./...", "-v", "-race", "-run", ".*Integration$"})
 		_, err = container.Sync(context.Background())
 		return err
 	},

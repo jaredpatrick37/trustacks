@@ -13,7 +13,7 @@ var (
 	TrivyConfigExistsFact = engine.NewFact()
 )
 
-var TrivyConfigExistsRule engine.Rule = func(source string, collector engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
+var TrivyConfigExistsRule engine.Rule = func(source string, _ engine.Collector, _ mapset.Set[engine.Fact]) (engine.Fact, error) {
 	var fact = engine.NilFact
 	if _, err := os.Stat(filepath.Join(source, "trivy.yaml")); os.IsNotExist(err) {
 		return fact, nil
@@ -25,6 +25,6 @@ var TrivyConfigExistsRule engine.Rule = func(source string, collector engine.Col
 }
 
 func init() {
-	engine.AddToRuleset(&container.ContainerfileHasNoDependenciesRule, &TrivyConfigExistsRule)
+	engine.AddToRuleset(&container.ContainerfileHasPredictableDependenciesRule, &TrivyConfigExistsRule)
 	engine.AddToRuleset(&container.ContainerfileHasBuildCopyRule, &TrivyConfigExistsRule)
 }
